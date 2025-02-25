@@ -1,5 +1,10 @@
 ---
-title: Quarto Template
+title: ES 114 Assignment
 ---
 
-Quarto template Text!
+This blog website has been created as part of the course of our BTech first year in IIT Gandhinagar, titled 'Probability, Statistics and Data Visualizations'.
+
+Student's Details:
+Prachi Jindal (24110264)
+Shah Khushi (24110326)
+Shreya Anbu (24110331)
