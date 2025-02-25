@@ -1,1 +1,1 @@
-Sitemap: https://nipunbatra.github.io/quarto-template/sitemap.xml
+Sitemap: https://shreyaanbu.github.io/Blog-Website/sitemap.xml
