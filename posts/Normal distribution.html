@@ -6,11 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Shreya Anbu">
-<meta name="dcterms.date" content="2025-02-25">
-<meta name="description" content="Introduction Post">
 
-<title>Introduction to SciPy – Quarto Template</title>
+<title>normal-distribution – Quarto Template</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -145,117 +142,190 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- margin-sidebar -->
     
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
 
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title">Introduction to SciPy</h1>
+
+
+
+<div id="e91df361-563a-4d5c-b3d1-d5e96bf74fce" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> scipy.stats <span class="im">as</span> stats</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-
+<p>the data is taken from the website - https://www.kaggle.com/datasets/mustafaali96/weight-height?resource=download</p>
+<div id="d7c8905c-f5c8-4b94-b215-f9634ef3ed21" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>df<span class="op">=</span>pd.read_csv(<span class="st">"weight-height.csv"</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df.head())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Gender     Height      Weight
+0   Male  73.847017  241.893563
+1   Male  68.781904  162.310473
+2   Male  74.110105  212.740856
+3   Male  71.730978  220.042470
+4   Male  69.881796  206.349801</code></pre>
+</div>
+</div>
+<div id="c50b7d98-45e0-4fc5-b5f3-54e0c66b5f46" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>mean<span class="op">=</span>df[<span class="st">"Height"</span>].mean()</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>((mean))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>66.36755975482124</code></pre>
+</div>
+</div>
+<div id="6bd7cb62-7483-4f73-9a8b-6c2cba5615c6" class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>standard_deviation<span class="op">=</span>df[<span class="st">"Height"</span>].std()</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>((standard_deviation))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>3.8475281207732324</code></pre>
+</div>
+</div>
+<div id="eb6bfc60-f57b-4f81-95d3-f581c3e19834" class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>plt.hist(df[<span class="st">"Height"</span>], bins <span class="op">=</span><span class="dv">60</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Standardized Return"</span>)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Density"</span>)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Histogram of Standardized Stock Returns"</span>)</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>plt.grid()</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
 <div>
-  <div class="description">
-    Introduction Post
-  </div>
-</div>
-
-
-<div class="quarto-title-meta">
-
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Shreya Anbu </p>
-          </div>
-  </div>
-    
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">February 25, 2025</p>
-    </div>
-  </div>
-  
-    
-  </div>
-  
-
-
-</header>
-
-
-<section id="introduction-to-scipy" class="level1">
-<h1><strong>Introduction to SciPy</strong></h1>
-</section>
-<section id="scipy.stats-module" class="level1">
-<h1>scipy.stats Module</h1>
-<p>It is a very helpful module used for statistical analysis and modeling.</p>
-<blockquote class="blockquote">
-<p>This module contains a large number of probability distributions, summary and frequency statistics, correlation functions and statistical tests, masked statistics, kernel density estimation, quasi-Monte Carlo functionality, and more.</p>
-</blockquote>
-<p>You can find more information on the <a href="https://docs.scipy.org/doc/scipy/reference/stats.html">official documentation page</a>.</p>
-</section>
-<section id="installation" class="level1">
-<h1>Installation</h1>
-<p>If you already have Python installed, you can install SciPy with pip by executing the following in a terminal/shell:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>python <span class="op">-</span>m pip install scipy</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>While using Jupyter Notebook or Google Colab, just use the following line before writing the main code:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> scipy</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section>
-<section id="comparison-with-pytorch-distributions" class="level1">
-<h1>Comparison with PyTorch Distributions</h1>
-<p>Can’t both of these modules used for modeling distributions? Why do they exist as two separate models then? <br> PyTorch module provides more functionality for deep learning applications, whereas SciPy is more suitable for statistical modeling, having a more user-friendly interface for statisticians.</p>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 41%">
-<col style="width: 29%">
-<col style="width: 29%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Feature</th>
-<th>PyTorch Version</th>
-<th>ScipPy Version</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Creating a Distribution</td>
-<td>torch.distributions.Poisson(rate_param)</td>
-<td>scipy.stats.poisson(rate_param)</td>
-</tr>
-<tr class="even">
-<td>Creating a Sample</td>
-<td>dist.sample((n, ))</td>
-<td>dist.rvs(size = n)</td>
-</tr>
-<tr class="odd">
-<td>Calculating PMF</td>
-<td>dist.log_prob(x).exp()</td>
-<td>dist.pmf(x)</td>
-</tr>
-</tbody>
-</table>
-<p>We can see with the last comparison how SciPy has more direct, easy to read functions for obtaining basic values out of a distribution.</p>
-</section>
-<section id="different-kinds-of-distributions-available" class="level1">
-<h1>Different Kinds of Distributions Available</h1>
-<p>There are a lot of things contained by the scipy.stats module, but we will be looking into the different kinds of distributions available for us to use. There are three kinds: <strong>continuous</strong>, <strong>discrete</strong> and <strong>multivariate</strong>. <br></p>
-<ul>
-<li><p><strong>Continuous Distribution:</strong> Random variable can take on any value within a specified range, meaning there are infinitely many possible values between any two points;</p></li>
-<li><p><strong>Discrete Distribution:</strong> Random variable can only take on a finite number of distinct values, usually whole numbers;</p></li>
-<li><p><strong>Multivariate Distribution:</strong> Describes the probability of multiple random variables occurring simultaneously, considering their potential relationships and correlations with each other.</p></li>
-</ul>
-<p>There are tons of distributions available under each kind that we can use, which can be explored again in the <a href="https://docs.scipy.org/doc/scipy/reference/stats.html">official documentation</a>.</p>
-<div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://gist.github.com/user-attachments/assets/b3db29a9-bc79-4164-9f4b-969c0c3fa23b.png" class="img-fluid figure-img"></p>
-<figcaption>Screenshot from official documentation</figcaption>
+<p><img src="Normal distribution_files/figure-html/cell-6-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
-<p>The above image shows the start of the list of functionalities, which barely scratches the surface.</p>
+</div>
+</div>
+<div id="acab75ce-a43e-48c3-86b2-642e45e72dbd" class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>loc, scale <span class="op">=</span> stats.norm.fit(df[<span class="st">"Height"</span>])</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>loc, scale</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="16">
+<pre><code>(66.36755975482124, 3.84733573955754)</code></pre>
+</div>
+</div>
+<div id="fe62211e-f906-400e-8850-b719c9d7849d" class="cell" data-execution_count="22">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>x_vals <span class="op">=</span> np.linspace(<span class="bu">min</span>(df[<span class="st">"Height"</span>]), <span class="bu">max</span>(df[<span class="st">"Height"</span>]), <span class="dv">1000</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="e8fb24c9-9de5-43bd-8564-63666b516bcc" class="cell" data-execution_count="24">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>pdf<span class="op">=</span>stats.norm.pdf(x_vals, loc<span class="op">=</span>loc, scale<span class="op">=</span>scale)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>plt.plot(x_vals, pdf, color<span class="op">=</span><span class="st">"black"</span>)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Normal distribution_files/figure-html/cell-9-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="689009de-6347-4eab-9756-1190b016d4ed" class="cell" data-execution_count="26">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit a normal distribution</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>mu, sigma <span class="op">=</span> stats.norm.fit(df[<span class="st">"Height"</span>])  <span class="co"># Should be close to (0,1) for standardized data</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate PDF values</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>x_vals <span class="op">=</span> np.linspace(<span class="bu">min</span>(df[<span class="st">"Height"</span>]), <span class="bu">max</span>(df[<span class="st">"Height"</span>]), <span class="dv">1000</span>)</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>pdf_vals <span class="op">=</span> stats.norm.pdf(x_vals, mu, sigma)</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the fitted normal distribution</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">5</span>))</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>plt.plot(x_vals, pdf_vals, label<span class="op">=</span><span class="ss">f"Normal Fit (μ=</span><span class="sc">{</span>mu<span class="sc">:.2f}</span><span class="ss">, σ=</span><span class="sc">{</span>sigma<span class="sc">:.2f}</span><span class="ss">)"</span>, color<span class="op">=</span><span class="st">'red'</span>)</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>plt.hist(df[<span class="st">"Height"</span>], bins<span class="op">=</span><span class="dv">20</span>, density<span class="op">=</span><span class="va">True</span>, alpha<span class="op">=</span><span class="fl">0.5</span>, label<span class="op">=</span><span class="st">"Histogram"</span>)</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Standardized Return"</span>)</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Density"</span>)</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Fitted Normal Distribution PDF"</span>)</span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Normal distribution_files/figure-html/cell-10-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><em>PMF V/S PDF</em> 1. PMF is for Discrete Data The PMF (Probability Mass Function) applies to discrete random variables, meaning variables that take on countable values (e.g., number of students, number of cars). It gives the probability of exact values occurring.</p>
+<ol start="2" type="1">
+<li>PDF is for Continuous Data Our dataset consists of continuous stock returns (e.g., real numbers like 0.52, -1.23, 1.89). For continuous distributions, the probability of a single exact value occurring is zero because there are infinitely many possible values. Instead of a PMF, we use a Probability Density Function (PDF) to describe the relative likelihood of values falling within an interval.</li>
+</ol>
+<p>Since stock returns are continuous, we cannot use a PMF. Instead, we must use a PDF (such as a normal distribution or kernel density estimation) to describe their distribution.</p>
+<p>The Cumulative Distribution Function (CDF) gives the probability that a random variable 𝑋 is less than or equal to a specific value 𝑥, i.e., F(x)=P(X≤x) It helps in understanding the cumulative probability of the data.</p>
+<div id="cba4b2b1-d0ef-44cf-85d3-7eecf23ec833" class="cell" data-execution_count="30">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>cdf<span class="op">=</span>stats.norm.cdf(x_vals, loc<span class="op">=</span>loc, scale<span class="op">=</span>scale)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>plt.plot(x_vals, cdf, color<span class="op">=</span><span class="st">"black"</span>)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Normal distribution_files/figure-html/cell-11-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>PPF The Percent-Point Function (PPF) is the inverse of the Cumulative Distribution Function (CDF). It is also called the quantile function because it helps find the value of a random variable at a given probability.</p>
+<p>In simple terms, if:</p>
+<p>𝐹(𝑥)=𝑃(𝑋≤𝑥)</p>
+<p>then PPF finds 𝑥 for a given probability 𝑝, i.e., 𝑥=𝐹−1(𝑝)</p>
+<p>This helps in determining critical values for a normal distribution.</p>
+<div id="89c13d52-cb1a-4ecc-b5c3-d93ea7b252ed" class="cell" data-execution_count="33">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>p_vals <span class="op">=</span> np.linspace(<span class="fl">0.01</span>, <span class="fl">0.99</span>, <span class="dv">1000</span>)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>ppf<span class="op">=</span>stats.norm.ppf(p_vals, loc<span class="op">=</span>loc, scale<span class="op">=</span>scale)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>plt.plot(p_vals, ppf, color<span class="op">=</span><span class="st">"black"</span>)</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Normal distribution_files/figure-html/cell-12-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="a8651079-3b6e-4db9-9b31-5134d5bd0e45" class="cell" data-execution_count="35">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>cdf_1<span class="op">=</span>stats.norm.cdf(<span class="dv">1</span>, loc<span class="op">=</span>loc, scale<span class="op">=</span>scale)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>cdf_1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="35">
+<pre><code>4.840940191061131e-65</code></pre>
+</div>
+</div>
+<div id="288b5c7e-572b-4740-98bd-d99e82a0d6e9" class="cell" data-execution_count="37">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>mu, sigma <span class="op">=</span> stats.norm.fit(df[<span class="st">"Height"</span>])</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate height values for CDF</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>x_vals <span class="op">=</span> np.linspace(<span class="bu">min</span>(df[<span class="st">"Height"</span>]), <span class="bu">max</span>(df[<span class="st">"Height"</span>]), <span class="dv">1000</span>)</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute the CDF</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>cdf_vals <span class="op">=</span> stats.norm.cdf(x_vals, loc<span class="op">=</span>mu, scale<span class="op">=</span>sigma)</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Choose a specific height (e.g., 70 inches) to mark on the plot</span></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>x_mark <span class="op">=</span> <span class="dv">70</span></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>cdf_mark <span class="op">=</span> stats.norm.cdf(x_mark, loc<span class="op">=</span>mu, scale<span class="op">=</span>sigma)</span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the CDF</span></span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">5</span>))</span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>plt.plot(x_vals, cdf_vals, color<span class="op">=</span><span class="st">"black"</span>, label<span class="op">=</span><span class="st">"Normal CDF"</span>)</span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Mark the chosen height on the CDF</span></span>
+<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a>plt.vlines(x_mark, <span class="dv">0</span>, cdf_mark, linestyle<span class="op">=</span><span class="st">":"</span>, color<span class="op">=</span><span class="st">"red"</span>, label<span class="op">=</span><span class="ss">f"CDF at </span><span class="sc">{</span>x_mark<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a>plt.hlines(cdf_mark, <span class="bu">min</span>(x_vals), x_mark, linestyle<span class="op">=</span><span class="st">":"</span>, color<span class="op">=</span><span class="st">"red"</span>)</span>
+<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Labels and title</span></span>
+<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Height"</span>)</span>
+<span id="cb18-23"><a href="#cb18-23" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Cumulative Probability"</span>)</span>
+<span id="cb18-24"><a href="#cb18-24" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Cumulative Distribution Function (CDF) of Heights"</span>)</span>
+<span id="cb18-25"><a href="#cb18-25" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
+<span id="cb18-26"><a href="#cb18-26" aria-hidden="true" tabindex="-1"></a>plt.grid()</span>
+<span id="cb18-27"><a href="#cb18-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-28"><a href="#cb18-28" aria-hidden="true" tabindex="-1"></a><span class="co"># Show the plot</span></span>
+<span id="cb18-29"><a href="#cb18-29" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Normal distribution_files/figure-html/cell-14-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>A normal distribution, also called the bell curve, has many real world examples. Some examples include test scores, height, shoe size, IQ, and income.</p>
 
 
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
